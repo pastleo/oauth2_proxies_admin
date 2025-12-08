@@ -11,7 +11,10 @@ config :oauth2_proxies_admin,
   generators: [timestamp_type: :utc_datetime],
   # Docker socket path - override in local.exs or runtime.exs as needed
   # For Podman, use "/run/podman/podman.sock"
-  docker_socket: "/var/run/docker.sock"
+  docker_socket: "/var/run/docker.sock",
+  # Proxies path - override in local.exs or runtime.exs as needed
+  # Defaults to priv/proxies directory
+  proxies_path: Path.join(__DIR__, "../priv/proxies") |> Path.expand()
 
 # Configure the endpoint
 config :oauth2_proxies_admin, Oauth2ProxiesAdminWeb.Endpoint,

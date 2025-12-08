@@ -30,6 +30,12 @@ if docker_socket = System.get_env("DOCKER_SOCKET") || System.get_env("PODMAN_SOC
   config :oauth2_proxies_admin, docker_socket: docker_socket
 end
 
+# Configure proxies path
+# Can be overridden with PROXIES_PATH environment variable
+if proxies_path = System.get_env("PROXIES_PATH") do
+  config :oauth2_proxies_admin, proxies_path: proxies_path
+end
+
 if config_env() == :prod do
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you

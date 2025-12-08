@@ -2,17 +2,16 @@ defmodule Oauth2ProxiesAdmin.Proxies do
   @moduledoc """
   """
 
-  @priv_proxies_path :code.priv_dir(:oauth2_proxies_admin) |> Path.join("proxies")
   @emails_file_name "emails"
 
   def priv_proxies_path do
-    @priv_proxies_path
+    Application.get_env(:oauth2_proxies_admin, :proxies_path)
   end
 
   def list_proxies do
     with {:ok, names} <- priv_proxies_path() |> File.ls() do
       Enum.filter(names, fn name ->
-        Path.join(@priv_proxies_path, name)
+        Path.join(priv_proxies_path(), name)
         |> File.dir?()
       end)
       |> then(fn x -> {:ok, x} end)

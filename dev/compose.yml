@@ -1,0 +1,16 @@
+services:
+  # Example App 1 - Simple nginx without auth (for dev testing)
+  app1-oauth2-proxy:
+    image: nginx:alpine
+    container_name: app1-oauth2-proxy
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+
+  # Example App 2 - Simple nginx without auth (for dev testing)
+  app2-oauth2-proxy:
+    image: nginx:alpine
+    container_name: app2-oauth2-proxy
+    ports:
+      - "8082:80"
+    restart: unless-stopped

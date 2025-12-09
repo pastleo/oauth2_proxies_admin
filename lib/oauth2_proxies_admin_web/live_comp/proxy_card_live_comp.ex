@@ -33,9 +33,14 @@ defmodule Oauth2ProxiesAdminWeb.ProxyCardLiveComp do
   end
 
   def handle_event("restart_proxy_container", _value, socket) do
-    Docker.restart_container(socket.assigns.name)
+    case Docker.restart_container(socket.assigns.name) do
+      :ok ->
+        put_flash(:info, "Proxy container '#{socket.assigns.name}' restarted successfully")
+      {:error, reason} ->
+        put_flash(:error, "Failed to restart proxy container: #{inspect(reason)}")
+    end
 
-    {:noreply, socket}
+    {:noreply, assign(socket, :status, get_container_status(socket.assigns.name))}
   end
 
   defp get_container_status(container_name) do
@@ -51,6 +56,10 @@ defmodule Oauth2ProxiesAdminWeb.ProxyCardLiveComp do
       {:ok, emails} -> emails
       _ -> []
     end
+  end
+
+  defp put_flash(type, message) do
+    send(self(), {:put_flash, type, message})
   end
 
   defp status_classes("running"), do: "bg-green-400/20 text-green-50 border border-green-300/30"

@@ -1,5 +1,7 @@
 This is a web application written using the Phoenix web framework.
 
+For project overview, features, and deployment instructions, see [README.md](./README.md).
+
 ## Project guidelines
 
 - Use `mix precommit` alias when you are done with all changes and fix any pending issues
